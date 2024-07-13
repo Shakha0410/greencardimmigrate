@@ -84,6 +84,19 @@
   background-color: #4f4f4f;
   border-radius: 14px;
 }
+.motion-img {
+  animation: rotate 10s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
 
 body {
   -webkit-user-select: none;

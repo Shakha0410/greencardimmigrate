@@ -6,6 +6,24 @@ import { slideIn } from "../utils/motion";
 
 function Contact() {
   const formRef = useRef();
+  const [hasChildren, setHasChildren] = useState(false);
+  const [children, setChildren] = useState([]);
+  const [newChild, setNewChild] = useState('');
+
+  const handleHasChildrenChange = (e) => {
+    setHasChildren(e.target.value === 'yes');
+  };
+
+  const handleAddChild = () => {
+    if (children.length < 5) {
+      setChildren([...children, newChild]);
+      setNewChild('');
+    }
+  };
+
+  const handleRemoveChild = (index) => {
+    setChildren(children.filter((child, i) => i!== index));
+  };
 
   const [form, setForm] = useState({
     name: "",
@@ -13,16 +31,17 @@ function Contact() {
     sex: "",
     wife: "",
     children: "",
+    hasChildren: "",
     date: "",
     city: "",
+    number: "",
+    numbertwo: "",
     address: "",
     zipcode: "",
     email: "",
     degree: "",
     family: "",
     message: "",
-    photo: null, // add a new state for the photo
-    passport: null,
     
   });
   const [loading, setLoading] = useState(false);
@@ -44,6 +63,16 @@ function Contact() {
     setLoading(true);
 
     const formData = new FormData(); // create a new FormData instance
+    Object.keys(form).forEach((key) => {
+      if (key === 'children') {
+        // If children is an array, join them as a string before appending
+        formData.append(key, children.join(', '));
+      } else {
+        formData.append(key, form[key]);
+      }
+    });
+
+
     formData.append("from_name", form.name);
     formData.append("to_name", "Green Card Lottery");
     formData.append("from_email", form.email);
@@ -56,18 +85,14 @@ function Contact() {
     formData.append("date", form.date);
     formData.append("degree", form.degree);
     formData.append("children", form.children);
+    formData.append("hasChildren", form.hasChildren);
     formData.append("city", form.city);
     formData.append("sex", form.sex);
     formData.append("wife", form.wife);
-    if (form.photo) {
-      formData.append("photo", form.photo); // add the photo to the form data
-    }
-    if (form.passport) {
-      formData.append("passport", form.passport); // add the passport to the form data
-    }
+    formData.append("number", form.number);
+    formData.append("numbertwo", form.numbertwo);
 
-    emailjs
-     .send(
+    emailjs.send(
         process.env.NEXT_PUBLIC_SERVICE_ID,
         process.env.NEXT_PUBLIC_TEMPLATE_ID,
         formData,
@@ -84,16 +109,17 @@ function Contact() {
             date: "",
             city: "",
             sex: "",
+            number: "",
+            numbertwo: "",
             wife: "",
             children: "",
+            hasChildren: "",
             address: "",
             zipcode: "",
             email: "",
             degree: "",
             family: "",
             message: "",
-            photo: null,
-            passport: null,
           });
         },
         (error) => {
@@ -161,6 +187,34 @@ function Contact() {
             onChange={handleChange}
             required
             placeholder="Ayol yoki Erkak"
+            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
+          />
+        </label>
+        <label className="flex flex-col">
+          <span className="text-ctnPrimaryDark font-medium mb-4">
+            Asosiy telefon raqamingiz
+          </span>
+          <input
+            type="text"
+            name="number"
+            value={form.number}
+            onChange={handleChange}
+            required
+            placeholder="Masalan: +998 90 999-99-99"
+            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
+          />
+        </label>
+        <label className="flex flex-col">
+          <span className="text-ctnPrimaryDark font-medium mb-4">
+          Qo'shimcha telefon raqami
+          </span>
+          <input
+            type="text"
+            name="numbertwo"
+            value={form.numbertwo}
+            onChange={handleChange}
+            required
+            placeholder="Masalan: +998 97 777-77-77"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
           />
         </label>
@@ -248,20 +302,65 @@ function Contact() {
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
           />
         </label>
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-           Bolalat soni 
-          </span>
-          <input
-            type="text"
-            name="children"
-            value={form.children}
-            onChange={handleChange}
-            required
-            placeholder="Masalan: 2"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
+        <div className="flex flex-col">
+      <label>
+        <span className="text-ctnPrimaryDark font-medium mb-4"> Bolalaringiz bormi?</span> <br />
+       
+        <br />
+        <input
+          type="radio"
+          value="yes"
+          checked={hasChildren}
+          onChange={handleHasChildrenChange}
+        />
+        <span className="text-ctnPrimaryDark font-medium mb-4">Xa</span> <br /> <br />
+        
+        <input
+          type="radio"
+          value="no"
+          checked={!hasChildren}
+          onChange={handleHasChildrenChange}
+        />
+        <span className="text-ctnPrimaryDark font-medium mb-4">Yuq</span>
+      </label>
+
+      {hasChildren && (
+        <div className="mt-4">
+          {children.map((child, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <input
+                type="text"
+                value={child}
+                onChange={(e) => setChildren(children.map((c, i) => (i === index? e.target.value : c)))}
+                className="w-full px-4 py-2 text-gray-700"
+              />
+              <button
+                className="ml-2 text-red-500 hover:text-red-700"
+                onClick={() => handleRemoveChild(index)}
+              >
+                x
+              </button>
+            </div>
+          ))}
+
+          <div className="flex items-center mb-2">
+            <input
+              type="text"
+              value={newChild}
+              onChange={(e) => setNewChild(e.target.value)}
+              className="w-full px-4 py-2 text-gray-700"
+              placeholder="Add another child"
+            />
+            <button
+              className="ml-2 text-green-500 hover:text-green-700"
+              onClick={handleAddChild}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
             Bilim darajangiz 
@@ -290,31 +389,7 @@ function Contact() {
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
           />
         </label>        
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark  font-medium mb-4">
-            Foto (max 3MB)
-          </span>
-          <input
-            type="file"
-            name="photo"
-            onChange={handlePhotoChange}
-            required
-            accept=".jpg,.jpeg,.png" // add accept attribute to restrict file types
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark  font-medium mb-4">
-           Passport (max 3MB) orqa fonda 600px ga 600px
-          </span>
-          <input
-            type="file"
-            name="passport"
-            onChange={handlePassportChange}
-            accept=".jpg,.jpeg,.png" // add accept attribute to restrict file types
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
+
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark  font-medium mb-4">
             Komentarya (To&lsquo;lov haqida, qushimcha informatsya, )

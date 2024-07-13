@@ -13,6 +13,7 @@ import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
 
+
 function ExperienceCard({ experience, theme }) {
   return (
     <VerticalTimelineElement
@@ -70,7 +71,7 @@ function ExperienceCard({ experience, theme }) {
             {point}
           </li>
         ))}
-      </ul>
+      </ul> 
     </VerticalTimelineElement>
   );
 }
@@ -104,6 +105,7 @@ function Experience() {
             />
           ))}
         </VerticalTimeline>
+
       </div>
     </motion.section>
   );
