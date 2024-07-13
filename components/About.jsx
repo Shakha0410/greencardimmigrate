@@ -32,6 +32,8 @@ function About() {
           <br className="sm:block hidden" />
          Dokumentlar tashlanayotgan emailimiz !
         </div>
+        <span>99-635-35-95</span>
+        <span>95-500-95-35</span>
         <div className="w-fit break-words">
           <Link
             href="mailto:davlatmusinov79@gmail.com"

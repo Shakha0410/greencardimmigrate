@@ -5,10 +5,11 @@ import emailjs from "@emailjs/browser";
 import { slideIn } from "../utils/motion";
 
 function Contact() {
-  const formRef = useRef();
+  const form = useRef();
   const [hasChildren, setHasChildren] = useState(false);
   const [children, setChildren] = useState([]);
   const [newChild, setNewChild] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleHasChildrenChange = (e) => {
     setHasChildren(e.target.value === 'yes');
@@ -25,111 +26,28 @@ function Contact() {
     setChildren(children.filter((child, i) => i!== index));
   };
 
-  const [form, setForm] = useState({
-    name: "",
-    surname:"",
-    sex: "",
-    wife: "",
-    children: "",
-    hasChildren: "",
-    date: "",
-    city: "",
-    number: "",
-    numbertwo: "",
-    address: "",
-    zipcode: "",
-    email: "",
-    degree: "",
-    family: "",
-    message: "",
-    
-  });
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({...form, [name]: value });
-  };
-
-  const handlePhotoChange = (e) => {
-    setForm({...form, photo: e.target.files[0] });
-  };
-  const handlePassportChange = (e) => {
-    setForm({...form, passport: e.target.files[0] });
-  };
-
-  const handleSubmit = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    const formData = new FormData(); // create a new FormData instance
-    Object.keys(form).forEach((key) => {
-      if (key === 'children') {
-        // If children is an array, join them as a string before appending
-        formData.append(key, children.join(', '));
-      } else {
-        formData.append(key, form[key]);
-      }
-    });
-
-
-    formData.append("from_name", form.name);
-    formData.append("to_name", "Green Card Lottery");
-    formData.append("from_email", form.email);
-    formData.append("to_email", "shakhzodumarov0410@gmail.com");
-    formData.append("message", form.message);
-    formData.append("surname", form.surname);
-    formData.append("address", form.address);
-    formData.append("zipcode", form.zipcode);
-    formData.append("family", form.family);
-    formData.append("date", form.date);
-    formData.append("degree", form.degree);
-    formData.append("children", form.children);
-    formData.append("hasChildren", form.hasChildren);
-    formData.append("city", form.city);
-    formData.append("sex", form.sex);
-    formData.append("wife", form.wife);
-    formData.append("number", form.number);
-    formData.append("numbertwo", form.numbertwo);
-
-    emailjs.send(
-        process.env.NEXT_PUBLIC_SERVICE_ID,
-        process.env.NEXT_PUBLIC_TEMPLATE_ID,
-        formData,
-        process.env.NEXT_PUBLIC_EMAILJS_KEY
+    emailjs
+      .sendForm(
+        "service_dz9dtyk",
+        "template_5nmlfrb",
+        form.current,
+        "72_aRPiAFjslzE0EN"
       )
-     .then(
-        () => {
-          setLoading(false);
-          alert("Formani tuldirganingiz uchun rahmat.");
-
-          setForm({
-            name: "",
-            surname: "",
-            date: "",
-            city: "",
-            sex: "",
-            number: "",
-            numbertwo: "",
-            wife: "",
-            children: "",
-            hasChildren: "",
-            address: "",
-            zipcode: "",
-            email: "",
-            degree: "",
-            family: "",
-            message: "",
-          });
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("message sent");
+          alert("Endi rasmingizni telegramdan tugri formatda tashlang!");
         },
         (error) => {
-          setLoading(false);
-          console.log(error);
-          alert("Something went wrong. Please try again later.");
+          console.log(error.text);
         }
       );
   };
-
   return (
     <motion.div
       variants={slideIn("left", "tween", 0.2, 1)}
@@ -143,10 +61,9 @@ function Contact() {
       <h3 className={"sectionHeadText text-ctnPrimaryDark"}>Forma.</h3>
 
       <form
-        ref={formRef}
-        onSubmit={handleSubmit}
+        ref={form}
+        onSubmit={sendEmail}
         className="mt-8 flex flex-col gap-8"
-        encType="multipart/form-data" // add enctype to the form
       >
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
@@ -154,9 +71,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
+            name="user_name"
             required
             placeholder="ismingiz"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -168,9 +83,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="surname"
-            value={form.surname}
-            onChange={handleChange}
+            name="user_surname"
             required
             placeholder="Familyangiz?"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -182,9 +95,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="sex"
-            value={form.sex}
-            onChange={handleChange}
+            name="user_sex"
             required
             placeholder="Ayol yoki Erkak"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -196,9 +107,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="number"
-            value={form.number}
-            onChange={handleChange}
+            name="user_number"
             required
             placeholder="Masalan: +998 90 999-99-99"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -206,13 +115,11 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-          Qo'shimcha telefon raqami
+          Qoshimcha telefon raqami
           </span>
           <input
             type="text"
-            name="numbertwo"
-            value={form.numbertwo}
-            onChange={handleChange}
+            name="user_numbertwo"
             required
             placeholder="Masalan: +998 97 777-77-77"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -224,9 +131,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="date"
-            value={form.date}
-            onChange={handleChange}
+            name="user_date"
             required
             placeholder="kun/oy/yil"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -238,9 +143,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="city"
-            value={form.city}
-            onChange={handleChange}
+            name="user_city"
             required
             placeholder="Masalan: Samarqand"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -252,9 +155,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="address"
-            value={form.address}
-            onChange={handleChange}
+            name="user_address"
             required
             placeholder="Masalan: Mirzo Ulug'bek 96"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -266,9 +167,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="zipcode"
-            value={form.zipcode}
-            onChange={handleChange}
+            name="user_zipcode"
             required
             placeholder="Masalan: 140100"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -280,9 +179,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="family"
-            value={form.family}
-            onChange={handleChange}
+            name="user_family"
             required
             placeholder="Masalan: Bo'ydoq, Oylaviy, Ajrashgan"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -294,9 +191,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="wife"
-            value={form.wife}
-            onChange={handleChange}
+            name="user_wife"
             required
             placeholder="Masalan: Aliyeva Kamola Abdulayeva"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -310,6 +205,7 @@ function Contact() {
         <input
           type="radio"
           value="yes"
+          name="user_children"
           checked={hasChildren}
           onChange={handleHasChildrenChange}
         />
@@ -318,6 +214,7 @@ function Contact() {
         <input
           type="radio"
           value="no"
+          name="user_children"
           checked={!hasChildren}
           onChange={handleHasChildrenChange}
         />
@@ -331,6 +228,7 @@ function Contact() {
               <input
                 type="text"
                 value={child}
+                name="user_children_number"
                 onChange={(e) => setChildren(children.map((c, i) => (i === index? e.target.value : c)))}
                 className="w-full px-4 py-2 text-gray-700"
               />
@@ -347,6 +245,7 @@ function Contact() {
             <input
               type="text"
               value={newChild}
+              name="new_user_children_number"
               onChange={(e) => setNewChild(e.target.value)}
               className="w-full px-4 py-2 text-gray-700"
               placeholder="Add another child"
@@ -367,9 +266,7 @@ function Contact() {
           </span>
           <input
             type="text"
-            name="degree"
-            value={form.degree}
-            onChange={handleChange}
+            name="user_degree"
             required
             placeholder="Maktab, Bakalavr, Magistratura"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
@@ -381,24 +278,19 @@ function Contact() {
           </span>
           <input
             type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
+            name="user_email"
             required
             placeholder="ishonchli email yozilsin"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
           />
         </label>        
-
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark  font-medium mb-4">
             Komentarya (To&lsquo;lov haqida, qushimcha informatsya, )
           </span>
           <textarea
             rows={4}
-            name="message"
-            value={form.message}
-            onChange={handleChange}
+            name="user_message"
             required
             placeholder="Masalan: To'lovi nechi pul?"
             className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lgh-fit placeholder:break-words break-words"
@@ -408,10 +300,17 @@ function Contact() {
 
         <button
           type="submit"
+          value="send"
           className="bg-primary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-tertiary hover:shadow-primary hover:bg-tertiary transition-all duration-800 ease-in"
         >
           {loading? "Junatayapti..." : "Junatmoq"}
         </button>
+        <a href="https://t.me/Greencardstudio"> <button
+          className="bg-sky-400 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-sky-500 hover:shadow-sky-500 hover:bg-sky-600 transition-all duration-800 ease-in"
+        >
+          Telegramga rasmlar tashlanadi
+        </button></a> <span>Formani junatganingizdan keyin rasmlarni tashlaysiz</span>
+       
         <p>Formaga yaxshilab etibor bilan to&lsquo;ldiring!</p>
       </form>
     </motion.div>

@@ -1,4 +1,6 @@
 import InstagramIcon from "./../public/assets/icons/instagram.svg";
+import TiktokIcon from "./../public/assets/icons/tiktok.svg";
+import TelegramIcon from "./../public/assets/icons/telegram.svg";
 import FrontendIcon from "./../public/assets/company/document.svg";
 import LeaderShipIcon from "./../public/assets/company/date.svg";
 import ProblemSolvingIcon from "./../public/assets/company/user.svg";
@@ -194,7 +196,17 @@ const socials = [
   {
     id: "instagram",
     icon: <InstagramIcon />,
-    link: "https://www.instagram.com/greencard_office",
+    link: "https://www.instagram.com/greencard_office1",
+  },
+  {
+    id: "Telegram",
+    icon: <TelegramIcon />,
+    link: "https://t.me/GreenCard_office",
+  },
+  {
+    id: "Tik tok",
+    icon: <TiktokIcon />,
+    link: "https://www.tiktok.com/@greencard_office",
   },
 ];
 
