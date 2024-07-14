@@ -10,6 +10,8 @@ function Contact() {
   const [children, setChildren] = useState([]);
   const [newChild, setNewChild] = useState('');
   const [loading, setLoading] = useState(false);
+  const [dontKnowZipcode, setDontKnowZipcode] = useState(false);
+  const [oylaviyStatus, setOylaviyStatus] = useState('');
 
   const handleHasChildrenChange = (e) => {
     setHasChildren(e.target.value === 'yes');
@@ -90,17 +92,30 @@ function Contact() {
           />
         </label>
         <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-            Jinzingiz
-          </span>
-          <input
-            type="text"
-            name="user_sex"
-            required
-            placeholder="Ayol yoki Erkak"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
+  <span className="text-ctnPrimaryDark font-medium mb-4">
+    Jinsingiz
+  </span>
+  <div className="flex flex-wrap gap-4">
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_sex"
+        value="Erkak"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Erkak</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_sex"
+        value="Ayol"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Ayol</span>
+    </label>
+  </div>
+</label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
             Asosiy telefon raqamingiz
@@ -162,41 +177,88 @@ function Contact() {
           />
         </label>
         <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-            zipcode
-          </span>
-          <input
-            type="text"
-            name="user_zipcode"
-            required
-            placeholder="Masalan: 140100"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-            Oylaviy Status 
-          </span>
-          <input
-            type="text"
-            name="user_family"
-            required
-            placeholder="Masalan: Bo'ydoq, Oylaviy, Ajrashgan"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-           Turmush o&lsquo;rtog&lsquo;ingiz ism sharifi 
-          </span>
-          <input
-            type="text"
-            name="user_wife"
-            required
-            placeholder="Masalan: Aliyeva Kamola Abdulayeva"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
+  <span className="text-ctnPrimaryDark font-medium mb-4">
+    zipcode
+  </span>
+  <div className="flex flex-wrap gap-4">
+    <input
+      type="text"
+      name="user_zipcode"
+      placeholder="Masalan: 140100"
+      className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
+      disabled={dontKnowZipcode}
+    />
+    <label className="flex items-center">
+      <input
+        type="checkbox"
+        name="zipcode_unknown"
+        value="dont_know"
+        onChange={() => setDontKnowZipcode(!dontKnowZipcode)}
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Bilmayman</span>
+    </label>
+  </div>
+</label>
+<label className="flex flex-col">
+  <span className="text-ctnPrimaryDark font-medium mb-4">
+    Oylaviy Status 
+  </span>
+  <div className="flex flex-wrap gap-4">
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="oylaviy_status"
+        value="Bo'ydoq"
+        required
+        onChange={() => setOylaviyStatus("Bo'ydoq")}
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Bo'ydoq</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="oylaviy_status"
+        value="Oylaviy"
+        required
+        onChange={() => setOylaviyStatus("Oylaviy")}
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Oylaviy</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="oylaviy_status"
+        value="Beva"
+        required
+        onChange={() => setOylaviyStatus("Beva")}
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Beva</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="oylaviy_status"
+        value="Ajrashgan"
+        required
+        onChange={() => setOylaviyStatus("Ajrashgan")}
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Ajrashgan</span>
+    </label>
+  </div>
+</label>
+
+<label className="flex flex-col">
+  <span className="text-ctnPrimaryDark font-medium mb-4">
+    Turmush o&lsquo;rtog&lsquo;ingiz ism sharifi 
+  </span>
+  <input
+    type="text"
+    name="user_wife"
+    placeholder="Masalan: Aliyeva Kamola Abdulayeva"
+    className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
+    disabled={oylaviyStatus !== "Oylaviy"}
+  />
+</label>
         <div className="flex flex-col">
       <label>
         <span className="text-ctnPrimaryDark font-medium mb-4"> Bolalaringiz bormi?</span> <br />
@@ -248,7 +310,7 @@ function Contact() {
               name="new_user_children_number"
               onChange={(e) => setNewChild(e.target.value)}
               className="w-full px-4 py-2 text-gray-700"
-              placeholder="Add another child"
+              placeholder="bola qushish"
             />
             <button
               className="ml-2 text-green-500 hover:text-green-700"
@@ -260,18 +322,49 @@ function Contact() {
         </div>
       )}
     </div>
-        <label className="flex flex-col">
-          <span className="text-ctnPrimaryDark font-medium mb-4">
-            Bilim darajangiz 
-          </span>
-          <input
-            type="text"
-            name="user_degree"
-            required
-            placeholder="Maktab, Bakalavr, Magistratura"
-            className="bg-bgPrimaryDark py-4 px-6 placeholder:text-ctnSecondaryDark rounded-lg outline-none border-none font-medium text-ctnPrimaryDark  placeholder:text-sm md:placeholder:text-lg h-fit placeholder:break-words break-words"
-          />
-        </label>
+    <label className="flex flex-col">
+  <span className="text-ctnPrimaryDark font-medium mb-4">
+    Bilim darajangiz 
+  </span>
+  <div className="flex flex-wrap gap-4">
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_degree"
+        value="Maktab"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Maktab</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_degree"
+        value="Kolledj"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Kolledj</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_degree"
+        value="Bakalavr"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Bakalavr</span>
+    </label>
+    <label className="flex items-center">
+      <input
+        type="radio"
+        name="user_degree"
+        value="Magistratura"
+        required
+      />
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Magistratura</span>
+    </label>
+  </div>
+</label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark  font-medium mb-4">
            Emailingiz 
@@ -304,15 +397,16 @@ function Contact() {
           className="bg-primary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-tertiary hover:shadow-primary hover:bg-tertiary transition-all duration-800 ease-in"
         >
           {loading? "Junatayapti..." : "Junatmoq"}
-        </button>
+        </button> </form><br /><br />
         <a href="https://t.me/Greencardstudio"> <button
           className="bg-sky-400 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-sky-500 hover:shadow-sky-500 hover:bg-sky-600 transition-all duration-800 ease-in"
         >
           Telegramga rasmlar tashlanadi
-        </button></a> <span>Formani junatganingizdan keyin rasmlarni tashlaysiz</span>
+        </button></a> <br /><br />
+        <span>Formani junatganingizdan keyin rasmlarni tashlaysiz</span><br /><br />
        
         <p>Formaga yaxshilab etibor bilan to&lsquo;ldiring!</p>
-      </form>
+     
     </motion.div>
   );
 }
