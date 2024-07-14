@@ -212,7 +212,7 @@ function Contact() {
         required
         onChange={() => setOylaviyStatus("Bo'ydoq")}
       />
-      <span className="ml-2 text-ctnPrimaryDark font-medium">Bo'ydoq</span>
+      <span className="ml-2 text-ctnPrimaryDark font-medium">Bo&lsquo;ydoq</span>
     </label>
     <label className="flex items-center">
       <input
