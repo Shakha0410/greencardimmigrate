@@ -34,10 +34,10 @@ function Contact() {
 
     emailjs
       .sendForm(
-        "service_dz9dtyk",
-        "template_5nmlfrb",
+        "service_jm8q28a",
+        "template_9v1lweq",
         form.current,
-        "72_aRPiAFjslzE0EN"
+        "KYiuPb4W5e0O-mKx5"
       )
       .then(
         (result) => {

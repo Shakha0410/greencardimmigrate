@@ -45,6 +45,7 @@ function About() {
             davlatmusinov79@gmail.com
           </Link>
         </div>
+        {/* Davlatgreencard10 */}
         <div className="flex gap-5 items-center">
           {socials.map((social) => (
             <Link
