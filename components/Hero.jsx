@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-
+import { FormattedMessage } from "react-intl";
 import { ComputersCanvas } from "./canvas";
 import { fadeIn, textVariant } from "@/utils/motion";
 import { heroTexts } from "@/constants";
@@ -25,8 +25,8 @@ function Hero({ loading, isMobile }) {
           viewport={{ once: true, amount: 0.25 }}
         >
           <h1 className={`heroHeadText`}>
-            Green Card Lotteryga {" "}
-            <span className="dark:text-five text-primary">Xush kelibsiz</span>
+          <FormattedMessage id="page.head.home.title" /> {" "}
+            <span className="dark:text-five text-primary"><FormattedMessage id="page.home.learning.title" /></span>
           </h1>
           <p className={`heroSubText mt-2 tracking-wide`}>
             <TypeAnimation

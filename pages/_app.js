@@ -1,14 +1,29 @@
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
+import { useRouter } from 'next/router';
+import { IntlProvider } from "react-intl";
 import { useEffect, useState } from "react";
+import ru from "../i18n/ru.json";
+import uz from "../i18n/uz.json";
+
 
 import "@/styles/globals.css";
 
 import { PreLoader } from "@/components/Loader";
+	const messages = {
+		ru,
+		uz
+	};
+
+	function getDirection(locale) {
+		return "ltr";
+	}
 
 export default function App({ Component, pageProps }) {
 	const [loading, setLoading] = useState(true);
+
+	const { locale } = useRouter();
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
@@ -25,10 +40,12 @@ export default function App({ Component, pageProps }) {
 
 	const title = "Green Card | Lottery";
 	const description =
-		"Sizning Green Card chiqish uchun hamma hizmat bizning kompanyamizda";
+	"Sizning Green Card chiqish uchun hamma hizmat bizning kompanyamizda";
 	const avatar =
 		"/assets/green-card.png";
-	const url = "https://shivam-sharma-myportfolio.vercel.app/";
+	const url = "https://www.greencardlotterry.com/";
+
+
 
 	return (
 		<>
@@ -77,12 +94,14 @@ export default function App({ Component, pageProps }) {
 					href="/assets/icons/favicon/site.webmanifest"
 				/>
 			</Head>
-
+			// @ts-ignore
+			<IntlProvider locale={locale} messages={messages[locale]}>
 			<ThemeProvider attribute="class" defaultTheme="dark">
-				<Component {...pageProps} loading={loading} />
+				<Component {...pageProps} loading={loading} dir={getDirection(locale)}/>
                 <Analytics />
 				{loading && <PreLoader />}
 			</ThemeProvider>
+			</IntlProvider>
 		</>
 	);
 }

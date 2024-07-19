@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-
+import { FormattedMessage } from "react-intl";
 import { slideIn } from "../utils/motion";
 
 function Contact() {
@@ -59,8 +59,8 @@ function Contact() {
       className="xl:my-36 md:w-2/5 w-full bg-bgSecondaryDark xl:ml-36 lg:ml-16 md:ml-10 p-8 rounded-2xl shadow-md shadow-primary"
       id="contact"
     >
-      <p className={"sectionSubText text-ctnSecondaryDark"}>Formani to&lsquo;lovdan so&lsquo;ng to&lsquo;ldirasiz</p>
-      <h3 className={"sectionHeadText text-ctnPrimaryDark"}>Forma.</h3>
+      <p className={"sectionSubText text-ctnSecondaryDark"}><FormattedMessage id="page.tabs.description" /></p>
+      <h3 className={"sectionHeadText text-ctnPrimaryDark"}><FormattedMessage id="page.header.contact" /></h3>
 
       <form
         ref={form}
@@ -69,7 +69,7 @@ function Contact() {
       >
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Ismingiz (passportda kursatilganday)
+          <FormattedMessage id="page.tabs.button.feedback" />
           </span>
           <input
             type="text"
@@ -81,7 +81,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Familyangiz (passportda kursatilganday)
+          <FormattedMessage id="page.tabs.button.schedule" />
           </span>
           <input
             type="text"
@@ -93,7 +93,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
   <span className="text-ctnPrimaryDark font-medium mb-4">
-    Jinsingiz
+  <FormattedMessage id="page.tabs.button.video" />
   </span>
   <div className="flex flex-wrap gap-4">
     <label className="flex items-center">
@@ -103,7 +103,7 @@ function Contact() {
         value="Erkak"
         required
       />
-      <span className="ml-2 text-ctnPrimaryDark font-medium">Erkak</span>
+      <span className="ml-2 text-ctnPrimaryDark font-medium"><FormattedMessage id="page.tabs.button.certificate" /></span>
     </label>
     <label className="flex items-center">
       <input
@@ -112,13 +112,13 @@ function Contact() {
         value="Ayol"
         required
       />
-      <span className="ml-2 text-ctnPrimaryDark font-medium">Ayol</span>
+      <span className="ml-2 text-ctnPrimaryDark font-medium"><FormattedMessage id="page.tabs.title.feedback" /></span>
     </label>
   </div>
 </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Asosiy telefon raqamingiz
+          <FormattedMessage id="page.tabs.title.certificate" />
           </span>
           <input
             type="text"
@@ -130,7 +130,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-          Qoshimcha telefon raqami
+          <FormattedMessage id="page.tabs.title.staff" />
           </span>
           <input
             type="text"
@@ -142,7 +142,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Tug&lsquo;ilgan sana
+          <FormattedMessage id="page.tabs.title.photo" />
           </span>
           <input
             type="text"
@@ -154,7 +154,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Tug&lsquo;ilgan shahar
+          <FormattedMessage id="page.contact.right.title" />
           </span>
           <input
             type="text"
@@ -166,7 +166,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark font-medium mb-4">
-            Uy joy address
+          <FormattedMessage id="page.contact.left.title" />
           </span>
           <input
             type="text"
@@ -178,7 +178,7 @@ function Contact() {
         </label>
         <label className="flex flex-col">
   <span className="text-ctnPrimaryDark font-medium mb-4">
-    zipcode
+  <FormattedMessage id="page.contact.left.text" />
   </span>
   <div className="flex flex-wrap gap-4">
     <input
@@ -201,7 +201,7 @@ function Contact() {
 </label>
 <label className="flex flex-col">
   <span className="text-ctnPrimaryDark font-medium mb-4">
-    Oylaviy Status 
+  <FormattedMessage id="page.contact.input.fitst.name" /> 
   </span>
   <div className="flex flex-wrap gap-4">
     <label className="flex items-center">
@@ -249,7 +249,7 @@ function Contact() {
 
 <label className="flex flex-col">
   <span className="text-ctnPrimaryDark font-medium mb-4">
-    Turmush o&lsquo;rtog&lsquo;ingiz ism sharifi 
+  <FormattedMessage id="page.contact.input.last.name" />
   </span>
   <input
     type="text"
@@ -324,7 +324,7 @@ function Contact() {
     </div>
     <label className="flex flex-col">
   <span className="text-ctnPrimaryDark font-medium mb-4">
-    Bilim darajangiz 
+  <FormattedMessage id="page.contact.sending" />
   </span>
   <div className="flex flex-wrap gap-4">
     <label className="flex items-center">
@@ -367,7 +367,7 @@ function Contact() {
 </label>
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark  font-medium mb-4">
-           Emailingiz 
+          <FormattedMessage id="page.contact.send" /> 
           </span>
           <input
             type="email"
@@ -379,7 +379,7 @@ function Contact() {
         </label>        
         <label className="flex flex-col">
           <span className="text-ctnPrimaryDark  font-medium mb-4">
-            Komentarya (To&lsquo;lov haqida, qushimcha informatsya, )
+          <FormattedMessage id="page.contact.required.field" /> 
           </span>
           <textarea
             rows={4}
@@ -401,11 +401,11 @@ function Contact() {
         <a href="https://t.me/Greencardstudio"> <button
           className="bg-sky-400 py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-sky-500 hover:shadow-sky-500 hover:bg-sky-600 transition-all duration-800 ease-in"
         >
-          Telegramga rasmlar tashlanadi
+         <FormattedMessage id="page.footer.block_1.title" /> 
         </button></a> <br /><br />
-        <span>Formani junatganingizdan keyin rasmlarni tashlaysiz</span><br /><br />
+        <span><FormattedMessage id="page.footer.block_2.title" /> </span><br /><br />
        
-        <p>Formaga yaxshilab etibor bilan to&lsquo;ldiring!</p>
+        <p><FormattedMessage id="page.footer.block_2.text_1" /></p>
      
     </motion.div>
   );

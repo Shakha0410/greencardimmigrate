@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-
+import { FormattedMessage } from "react-intl";
 import { navLinks } from "../constants";
 import ThemeButton from "./ThemeButton";
 import Menu from "./../public/assets/icons/menu.svg";
 import Close from "./../public/assets/icons/close.svg";
 import { slideIn } from "@/utils/motion";
+import { useRouter } from "next/router";
 
 function Navbar() {
 	const [active, setActive] = useState("");
 	const [toggle, setToggle] = useState(false);
 	const [avatarToggle, setAvatarToggle] = useState(false);
+	const { locales, locale: activeLocale, pathname } = useRouter();
 
 
 	function AvatarModal() {
@@ -60,13 +62,14 @@ function Navbar() {
             </div>
 						<Link href="/">
 							<p className="dark:text-ctnPrimaryDark text-ctnPrimaryLight text-[18px] font-bold cursor-pointer flex ">
-								Green Card 
+								<FormattedMessage id="page.head.home.title" />
 								<span className="lg:block hidden">
 									{"  "}
-									  Lottery
+									  
 								</span>
 							</p>
 						</Link>
+						
 					</div>
 
 					<ul className="list-none hidden md:flex flex-row gap-10 items-center">
@@ -87,7 +90,20 @@ function Navbar() {
 							className={`text-white hover:text-white text-[18px] font-medium cursor-pointer`}
 						>
 							<ThemeButton />
-						</li>
+						</li><div className="relative z-10 bg-white shadow-lg rounded-md ">
+    {[...locales].map((locale, index) => (
+        <Link
+            key={index + 1}
+            className={`block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-md ${
+                locale === activeLocale ? 'bg-gray-200 font-semibold' : ''
+            }`}
+            href={pathname}
+            locale={locale}
+        >
+            {locale}
+        </Link>
+    ))}
+</div>
 					</ul>
 
 					<div className="md:hidden flex flex-1 justify-end items-center">
@@ -131,8 +147,23 @@ function Navbar() {
 									className={`text-white hover:text-white text-[18px] font-medium cursor-pointer`}
 								>
 									<ThemeButton />
+									
 								</li>
 							</ul>
+							<div className="relative z-10 bg-white shadow-lg rounded-md">
+    {[...locales].map((locale, index) => (
+        <Link
+            key={index + 1}
+            className={`block px-2 py-2 text-gray-700 hover:bg-gray-200 rounded-md ${
+                locale === activeLocale ? 'bg-gray-200 font-semibold' : ''
+            }`}
+            href={pathname}
+            locale={locale}
+        >
+            {locale}
+        </Link>
+    ))}
+</div>
 						</motion.div>
 					</div>
 				</div>

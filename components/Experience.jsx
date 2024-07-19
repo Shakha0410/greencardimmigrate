@@ -6,7 +6,7 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import { motion } from "framer-motion";
-
+import { FormattedMessage } from "react-intl";
 import "react-vertical-timeline-component/style.min.css";
 
 import { experiences } from "../constants";
@@ -91,8 +91,8 @@ function Experience() {
   return (
     <motion.section className="w-full p-8 mt-20">
       <motion.div variants={textVariant()}>
-        <p className={`sectionSubText text-center`}>Biz bilan ishlab Green Card o&lsquo;ynagan </p>
-        <h2 className={`sectionHeadText text-center`}>Mijozlarimiz.</h2>
+        <p className={`sectionSubText text-center`}><FormattedMessage id="page.tabs.button.employees" /> </p>
+        <h2 className={`sectionHeadText text-center`}><FormattedMessage id="page.tabs.button.photo" /></h2>
       </motion.div>
 
       <div className="mt-20 flex flex-col">

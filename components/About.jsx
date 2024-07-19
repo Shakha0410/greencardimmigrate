@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-
+import { FormattedMessage } from "react-intl";
 import { socials } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import EmailIcon from "./../public/assets/icons/email.svg";
@@ -17,8 +17,8 @@ function About() {
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <p className={"sectionSubText text-gray-300"}>Kompanyamiz</p>
-        <h2 className={"sectionHeadText text-white"}>Haqida.</h2>
+        <p className={"sectionSubText text-gray-300"}><FormattedMessage id="page.header.home" /></p>
+        <h2 className={"sectionHeadText text-white"}><FormattedMessage id="page.about.cartitle" /></h2>
       </motion.div>
       <motion.div
         variants={fadeIn("", "", 0.1, 1)}
@@ -28,9 +28,9 @@ function About() {
         className="mt-4 dark:text-ctnSecondaryDark text-gray-300 text-[17px] w-full leading-[30px] flex flex-col justify-between gap-6"
       >
         <div>
-          Green Card Lottery kompaniyasi 2015 yilda ochilgan bulib ofisimiz Sharq Club o&lsquo;ng tarafida joylashgan. Shu yilga qadar kompanyamizda 2000+ yurtdoshlarimizga green card uynash, kansultatsya va sizning dokumentlaringiz xamma kompanyada ajralib turuvchi qilib berish va boshqa xizmatlarda profesiyonal xizmat taqdim qiladi.
+        <FormattedMessage id="page.about.learningtitle" />
           <br className="sm:block hidden" />
-         Dokumentlar tashlanayotgan emailimiz !
+          <FormattedMessage id="page.about.about.me.amazon" />
         </div>
         <span>99-635-35-95</span>
         <span>95-500-95-35</span>
@@ -66,7 +66,7 @@ function About() {
         >
           <div className="btn w-fit bg-tertiary text-white px-7 py-2 rounded-md overflow-hidden relative cursor-pointer">
             <div className="original bg-primary text-white px-7 py-2">
-              Bog&lsquo;lanish
+            <FormattedMessage id="page.about.about.me" />
             </div>
             <div className="letters">
               <span>B</span>

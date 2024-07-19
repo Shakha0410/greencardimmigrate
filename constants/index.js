@@ -4,49 +4,37 @@ import TelegramIcon from "./../public/assets/icons/telegram.svg";
 import FrontendIcon from "./../public/assets/company/document.svg";
 import LeaderShipIcon from "./../public/assets/company/date.svg";
 import ProblemSolvingIcon from "./../public/assets/company/user.svg";
-
+import { FormattedMessage } from "react-intl";
 
 const navLinks = [
   {
     id: "about",
-    title: "Kompanyamiz",
+    title: <FormattedMessage id="page.header.home" />,
   },
   {
     id: "work",
-    title: "Mijozlarimiz bilan",
+    title: <FormattedMessage id="page.header.about" />,
   },
   {
     id: "contact",
-    title: "Forma",
+    title: <FormattedMessage id="page.header.contact" />,
   },
 ];
 
 const services = [
-  // {
-  // 	title: "Full Stack Developer",
-  // 	icon: web
-  // },
   {
-    title: "Dokumentlar qilish",
+    title: <FormattedMessage id="page.about.ticket.first" />,
     icon: <FrontendIcon />,
   },
   {
-    title: "Mijoz uchun real vaqtda",
+    title: <FormattedMessage id="page.about.ticket.second" />,
     icon: <LeaderShipIcon />,
   },
   {
-    title: "Birga bir Kansultatsya",
+    title: <FormattedMessage id="page.about.ticket.second.two" />,
     icon: <ProblemSolvingIcon />,
   },
-  // {
-  //   title: "Freelancer",
-  //   icon: <FreelancerIcon />,
-  // },
-  // {
-  // 	title: "Backend Developer",
-  // 	icon: backend
-  // }
-  // {
+
 ];
 
 
@@ -60,7 +48,7 @@ const experiences = [
     iconBg: "#E6DEDD",
     date: "May 2023",
     points: [
-      "Bizning Mijozimizga Green card chiqganlariga so'ng bir yil ham o'tmasdan Amerika Qo'shma Shtatlarga yo'l oldi .",
+      <FormattedMessage id="page.tabs.title" />,
     ],
   },
   {
@@ -72,7 +60,7 @@ const experiences = [
     iconBg: "#E6DEDD",
     date: "May 2023",
     points: [
-      "Bu yosh mijozimiz bir urunishtayoq green card chiqdi va u ham xozirda Amerika Qo'shma Shtatlarda yashayapti.",
+      <FormattedMessage id="page.tabs.title" />,
     ],
   },
 
@@ -211,16 +199,16 @@ const socials = [
 ];
 
 const heroTexts = [
-  "Orzuyingiz ",
+  <FormattedMessage id="page.home.call" />,
   500,
-  "Sari",
+  <FormattedMessage id="page.home.stat.first" />,
   500,
-  "Birinchi qadamni",
+  <FormattedMessage id="page.home.stat.second" />,
   500,
-  "Biz bilan boshlang",
+  <FormattedMessage id="page.about.title" />,
   500,
 ];
-
+// label: <FormattedMessage id="page.header.feedback" />,
 export {
   navLinks,
   services,
