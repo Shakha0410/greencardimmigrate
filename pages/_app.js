@@ -94,7 +94,7 @@ export default function App({ Component, pageProps }) {
 					href="/assets/icons/favicon/site.webmanifest"
 				/>
 			</Head>
-			// @ts-ignore
+			{/* // @ts-ignore */}
 			<IntlProvider locale={locale} messages={messages[locale]}>
 			<ThemeProvider attribute="class" defaultTheme="dark">
 				<Component {...pageProps} loading={loading} dir={getDirection(locale)}/>
